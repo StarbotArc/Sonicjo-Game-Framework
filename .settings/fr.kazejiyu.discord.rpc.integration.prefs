@@ -1,0 +1,6 @@
+CUSTOM_APP_ID=
+CUSTOM_DISCORD_DETAILS_WORDING=Editing ${file} (${language})
+CUSTOM_DISCORD_STATE_WORDING=Working on ${project}
+USE_CUSTOM_APP=false
+USE_CUSTOM_WORDING=true
+eclipse.preferences.version=1
