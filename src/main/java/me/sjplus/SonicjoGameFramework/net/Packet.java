@@ -14,7 +14,10 @@ public interface Packet {
 	public static Packet read(String s) {
 	
 		Packet p = packetTypes.get(s.substring(0, 2));
-		p.parseData(s.substring(2));
+		
+		if (p != null)
+			p.parseData(s.substring(2));
+		
 		return p;
 		
 	}
