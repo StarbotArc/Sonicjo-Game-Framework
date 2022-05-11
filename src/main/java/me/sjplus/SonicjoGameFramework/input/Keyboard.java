@@ -17,7 +17,7 @@ import com.google.common.base.Charsets;
 public class Keyboard implements KeyListener {
 
 	private Map<Integer, Key> keys = new HashMap<>();
-	private List<Character> chars = new ArrayList<>();
+	private List<Character> charBuffer = new ArrayList<>();
 	private boolean typing; 
 	
 	public Keyboard() {
@@ -43,18 +43,22 @@ public class Keyboard implements KeyListener {
 		
 		if (typing) {
 	
-			if (e.getKeyCode() != KeyEvent.VK_BACK_SPACE) {
+			if (e.getKeyCode() != KeyEvent.VK_SHIFT && e.getKeyCode() != KeyEvent.VK_CONTROL && e.getKeyCode() != KeyEvent.VK_ALT && e.getKeyCode() != KeyEvent.VK_BACK_SLASH) {
 			
-				chars.add(e.getKeyChar());
-				System.out.print(e.getKeyChar());
-			
-			} else {
-			
-				chars.remove(chars.size() - 1);
-				System.out.print("bckspce");
+				if (e.getKeyCode() != KeyEvent.VK_BACK_SPACE) {
 				
+					charBuffer.add(e.getKeyChar());
+					//System.out.print(e.getKeyChar());
+				
+				} else {
+				
+					charBuffer.remove(charBuffer.size() - 1);
+					//System.out.print("bckspce");
+					
+				}
+
 			}
-		
+			
 		}
 		
 	}
@@ -100,6 +104,21 @@ public class Keyboard implements KeyListener {
 	public void setKeyTyping(boolean b) {
 		
 		this.typing = b;
+		
+	}
+	
+	public Object getCurrentChar() {
+		
+		if (charBuffer.size() > 0) {
+			
+			char currentChar = charBuffer.get(0);
+			charBuffer.remove(0);
+			
+			return currentChar;
+			
+		}
+		
+		return null;
 		
 	}
 	

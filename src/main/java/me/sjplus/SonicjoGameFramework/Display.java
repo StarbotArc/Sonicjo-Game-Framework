@@ -2,11 +2,13 @@ package me.sjplus.SonicjoGameFramework;
 
 import java.awt.*;
 import java.awt.image.*;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 
 import me.sjplus.SonicjoGameFramework.gfx.*;
 import me.sjplus.SonicjoGameFramework.input.*;
+import me.sjplus.SonicjoGameFramework.net.*;
 
 public class Display {
 
@@ -21,6 +23,8 @@ public class Display {
 	private JFrame frame;
 	private Keyboard keyboard;
 	private Mouse mouse;
+	
+	private SocketClient sClient;
 	
 	public Display(ThreadHandler thread, String title, int width, int height) {
 		
@@ -56,6 +60,31 @@ public class Display {
 		canvas.addKeyListener(keyboard);
 		
 	}
+	
+	public void createSocketClient(String host, int port) {
+		
+		this.sClient = new SocketClient(port, host);
+		
+	}
+	
+	public void nullifySocketClient() {
+		
+		this.sClient.close();
+		this.sClient = null;
+		
+	}
+	
+	public Mouse getMouse() {
+		
+		return mouse;
+		
+	}
+	
+	public Keyboard getKeyboard() {
+		
+		return keyboard;
+		
+	}
 
 	public void setScreen(Screen screen) {
 		
@@ -76,6 +105,20 @@ public class Display {
 	}
 	
 	public void update(double delta) {
+		
+		if (sClient != null) {
+			
+			try {
+	
+				sClient.listen();
+		
+			} catch (IOException e) {
+	
+				e.printStackTrace();
+	
+			}
+		
+		}
 		
 		screen.update(mouse, keyboard, delta);
 		

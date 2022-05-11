@@ -20,13 +20,26 @@ public class FontRenderer {
 	
 	public void draw(Render render, String text, int x, int y, float scale) {
 		
+		int yOff = 0;
+		int xOff = 0;
+		
 		for (int i = 0; i < text.length(); i++) {
+			
+			if (text.charAt(i) == '\n') {
+				
+				yOff += this.charHeight;
+				xOff = 0;
+				continue;
+				
+			}
 			
 			int ind = characters.indexOf(text.charAt(i)); 
 			int glyphX = (ind % (imgWidth / charWidth)) * charWidth;
 			int glyphY = (ind / (imgWidth / charWidth)) * charHeight;
 			
-			render.draw(fontsheet.getGlpyh(glyphX, glyphY, charWidth, charHeight), x + (charWidth + offsetX) * i, y, scale);
+			render.draw(fontsheet.getGlpyh(glyphX, glyphY, charWidth, charHeight), x + xOff, y + yOff, scale);
+			
+			xOff += this.charWidth + this.offsetX;
 			
 		}
 		

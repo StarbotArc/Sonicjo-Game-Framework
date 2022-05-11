@@ -39,5 +39,19 @@ public class SocketClient {
 		}
 		
 	}
+	
+	public void close() {
+		
+		try {
+	
+			this.socket.close();
+	
+		} catch (IOException e) {
+		
+			e.printStackTrace();
+		
+		}
+		
+	}
 
 }
