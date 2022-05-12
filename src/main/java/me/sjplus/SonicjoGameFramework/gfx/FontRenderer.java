@@ -39,7 +39,7 @@ public class FontRenderer {
 			
 			render.draw(fontsheet.getGlpyh(glyphX, glyphY, charWidth, charHeight), x + xOff, y + yOff, scale);
 			
-			xOff += this.charWidth + this.offsetX;
+			xOff += (this.charWidth + this.offsetX) * scale;
 			
 		}
 		
