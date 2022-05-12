@@ -23,6 +23,8 @@ public class SingleThreadHandler extends ThreadHandler implements Runnable {
 	
 	public void start() {
 		
+		this.listeners.forEach(l -> l.onStart());
+		
 		this.thread.start();
 		this.running = true;
 		
@@ -30,6 +32,8 @@ public class SingleThreadHandler extends ThreadHandler implements Runnable {
 	
 	public void stop() {
 	
+		this.listeners.forEach(l -> l.onStop());
+		
 		try {
 		
 			this.thread.join();
@@ -45,6 +49,8 @@ public class SingleThreadHandler extends ThreadHandler implements Runnable {
 	}
 	
 	public void init() {
+		
+		this.listeners.forEach(l -> l.onInit());
 		
 	}
 	
@@ -66,6 +72,12 @@ public class SingleThreadHandler extends ThreadHandler implements Runnable {
 			shouldRender = delta >= 1 || !lockframes;
 			
 			while (delta >= 1) {
+			
+				for (ThreadHandlerListener l : this.listeners) {
+					
+					l.onUpdate(delta);
+					
+				}
 				
 				display.update(delta);
 				ticks++;
