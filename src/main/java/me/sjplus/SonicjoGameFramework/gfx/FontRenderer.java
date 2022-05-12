@@ -27,7 +27,7 @@ public class FontRenderer {
 			
 			if (text.charAt(i) == '\n') {
 				
-				yOff += this.charHeight;
+				yOff += this.charHeight * scale;
 				xOff = 0;
 				continue;
 				
