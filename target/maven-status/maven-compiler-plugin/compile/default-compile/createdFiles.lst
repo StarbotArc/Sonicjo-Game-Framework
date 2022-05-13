@@ -6,6 +6,7 @@ me\sjplus\SonicjoGameFramework\net\SocketServer.class
 me\sjplus\SonicjoGameFramework\gfx\Screen.class
 me\sjplus\SonicjoGameFramework\math\Matrix4x4.class
 me\sjplus\SonicjoGameFramework\math\Matrix.class
+me\sjplus\SonicjoGameFramework\Display$1.class
 me\sjplus\SonicjoGameFramework\gfx\RenderingUtilities.class
 me\sjplus\SonicjoGameFramework\input\Mouse.class
 me\sjplus\SonicjoGameFramework\gfx\FontRenderer.class
