@@ -25,7 +25,7 @@ public class Render {
 			
 			for (int xp = 0; xp < (int) (render.height * scale); xp++) {
 				
-				int xPix = yp + y;
+				int xPix = xp + x;
 			
 				if (xPix < 0 || xPix >= width)
 					continue;
