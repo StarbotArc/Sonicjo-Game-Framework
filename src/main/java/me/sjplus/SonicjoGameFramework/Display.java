@@ -158,4 +158,51 @@ public class Display {
 		
 	}
 	
+	public enum DisplayHint {
+		
+		BORDERLESS,
+		BORDER,
+		FULLSCREEN,
+		NO_FULLSCREEN;
+		
+	}
+	
+	public void configureDisplay(DisplayHint... hints) {
+		
+		JFrame frame = getFrame();
+		
+		for (DisplayHint hint : hints) {
+			
+			if (hint == DisplayHint.BORDERLESS) {
+				
+				frame.setVisible(false);
+				frame.setUndecorated(true);
+				frame.setVisible(true);
+				
+			}
+			
+			if (hint == DisplayHint.BORDER) {
+				
+				frame.setVisible(false);
+				frame.setUndecorated(false);
+				frame.setVisible(true);
+				
+			}
+			
+			if (hint == DisplayHint.FULLSCREEN) {
+			
+				frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+				
+			}
+			
+			if (hint == DisplayHint.NO_FULLSCREEN) {
+				
+				frame.setExtendedState(JFrame.NORMAL);
+				
+			}
+			
+		}
+		
+	}
+	
 }
