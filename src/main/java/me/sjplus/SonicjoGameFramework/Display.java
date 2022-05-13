@@ -1,8 +1,11 @@
 package me.sjplus.SonicjoGameFramework;
 
 import java.awt.*;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.image.*;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.JFrame;
 
@@ -25,6 +28,7 @@ public class Display {
 	private Mouse mouse;
 	
 	private SocketClient sClient;
+	private Class<?> screenClass;
 	
 	public Display(ThreadHandler thread, String title, int width, int height) {
 		
@@ -59,6 +63,32 @@ public class Display {
 		
 		canvas.addKeyListener(keyboard);
 		
+		frame.addComponentListener(new ComponentListener() {
+
+			@Override
+			public void componentResized(ComponentEvent e) {
+				
+				onResize(e.getComponent().getWidth(), e.getComponent().getHeight());
+				
+			}
+
+			@Override
+			public void componentMoved(ComponentEvent e) {
+				
+			}
+
+			@Override
+			public void componentShown(ComponentEvent e) {
+				
+			}
+
+			@Override
+			public void componentHidden(ComponentEvent e) {
+				
+			}
+			
+		});
+		
 	}
 	
 	public void createSocketClient(String host, int port) {
@@ -92,6 +122,42 @@ public class Display {
 		
 	}
 
+	public void onResize(int width, int height) {
+		
+		this.width = width;
+		this.height = height;
+		
+		data = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+		pixels = (((DataBufferInt)data.getRaster().getDataBuffer()).getData());
+		
+		if (this.screenClass != null)
+			buildScreenWithClass();
+		
+	}
+	
+	public void setScreen(Class<?> screen) {
+		
+		this.screenClass = screen;
+		
+		buildScreenWithClass();
+		
+	}
+	
+	public void buildScreenWithClass() {
+		
+		try {
+			
+			this.screen = (Screen) screenClass.getConstructor(int.class, int.class).newInstance(width, height);
+		
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
+				| NoSuchMethodException | SecurityException e) {
+
+			e.printStackTrace();
+	
+		}
+		
+	}
+	
 	public void setScreen(Screen screen) {
 		
 		this.screen = screen;
@@ -175,17 +241,43 @@ public class Display {
 			
 			if (hint == DisplayHint.BORDERLESS) {
 				
-				frame.setVisible(false);
+				this.frame.dispose();
+				
+				frame = new JFrame(this.title);
+				canvas = new Canvas();
+				canvas.setPreferredSize(new Dimension(this.width, this.height));
+				frame.setSize(this.width, this.height);
+				frame.setPreferredSize(new Dimension(this.width, this.height));
+				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				
 				frame.setUndecorated(true);
+				
 				frame.setVisible(true);
+				frame.setLayout(new BorderLayout());
+				frame.add(canvas, BorderLayout.CENTER);
+				frame.setLocationRelativeTo(null);
+				frame.pack();
 				
 			}
 			
 			if (hint == DisplayHint.BORDER) {
 				
-				frame.setVisible(false);
+				this.frame.dispose();
+				
+				frame = new JFrame(this.title);
+				canvas = new Canvas();
+				canvas.setPreferredSize(new Dimension(this.width, this.height));
+				frame.setSize(this.width, this.height);
+				frame.setPreferredSize(new Dimension(this.width, this.height));
+				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				
 				frame.setUndecorated(false);
+				
 				frame.setVisible(true);
+				frame.setLayout(new BorderLayout());
+				frame.add(canvas, BorderLayout.CENTER);
+				frame.setLocationRelativeTo(null);
+				frame.pack();
 				
 			}
 			
@@ -193,15 +285,23 @@ public class Display {
 			
 				frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 				
+				canvas.setSize(frame.getSize());
+				this.onResize(frame.getSize().width, frame.getSize().height);
+				
 			}
 			
 			if (hint == DisplayHint.NO_FULLSCREEN) {
 				
 				frame.setExtendedState(JFrame.NORMAL);
 				
+				canvas.setSize(frame.getSize());
+				this.onResize(frame.getSize().width, frame.getSize().height);
+
 			}
 			
 		}
+		
+		this.frame = frame;
 		
 	}
 	
