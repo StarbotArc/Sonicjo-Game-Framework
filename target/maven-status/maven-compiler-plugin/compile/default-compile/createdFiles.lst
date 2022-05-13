@@ -1,4 +1,5 @@
 me\sjplus\SonicjoGameFramework\net\ClientListener.class
+me\sjplus\SonicjoGameFramework\Display$2.class
 me\sjplus\SonicjoGameFramework\Display.class
 me\sjplus\SonicjoGameFramework\gfx\Drawable.class
 me\sjplus\SonicjoGameFramework\gfx\Menu.class
@@ -18,6 +19,7 @@ me\sjplus\SonicjoGameFramework\gfx\Sprite.class
 me\sjplus\SonicjoGameFramework\input\Keyboard$Key.class
 me\sjplus\SonicjoGameFramework\ThreadHandlerListener.class
 me\sjplus\SonicjoGameFramework\ThreadHandler.class
+me\sjplus\SonicjoGameFramework\Display$3.class
 me\sjplus\SonicjoGameFramework\Display$DisplayHint.class
 me\sjplus\SonicjoGameFramework\math\Vector4D.class
 me\sjplus\SonicjoGameFramework\net\Packet.class

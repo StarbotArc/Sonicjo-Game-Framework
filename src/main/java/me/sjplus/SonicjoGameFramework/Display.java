@@ -258,6 +258,39 @@ public class Display {
 				frame.setLocationRelativeTo(null);
 				frame.pack();
 				
+				canvas.addMouseListener(mouse);
+				canvas.addMouseMotionListener(mouse);
+				canvas.addMouseWheelListener(mouse);
+				
+				canvas.addKeyListener(keyboard);
+				
+				frame.addComponentListener(new ComponentListener() {
+
+					@Override
+					public void componentResized(ComponentEvent e) {
+						
+						onResize(e.getComponent().getWidth(), e.getComponent().getHeight());
+						
+					}
+
+					@Override
+					public void componentMoved(ComponentEvent e) {
+						
+					}
+
+					@Override
+					public void componentShown(ComponentEvent e) {
+						
+					}
+
+					@Override
+					public void componentHidden(ComponentEvent e) {
+						
+					}
+					
+				});
+
+				
 			}
 			
 			if (hint == DisplayHint.BORDER) {
@@ -278,6 +311,39 @@ public class Display {
 				frame.add(canvas, BorderLayout.CENTER);
 				frame.setLocationRelativeTo(null);
 				frame.pack();
+				
+				canvas.addMouseListener(mouse);
+				canvas.addMouseMotionListener(mouse);
+				canvas.addMouseWheelListener(mouse);
+				
+				canvas.addKeyListener(keyboard);
+				
+				frame.addComponentListener(new ComponentListener() {
+
+					@Override
+					public void componentResized(ComponentEvent e) {
+						
+						onResize(e.getComponent().getWidth(), e.getComponent().getHeight());
+						
+					}
+
+					@Override
+					public void componentMoved(ComponentEvent e) {
+						
+					}
+
+					@Override
+					public void componentShown(ComponentEvent e) {
+						
+					}
+
+					@Override
+					public void componentHidden(ComponentEvent e) {
+						
+					}
+					
+				});
+
 				
 			}
 			
