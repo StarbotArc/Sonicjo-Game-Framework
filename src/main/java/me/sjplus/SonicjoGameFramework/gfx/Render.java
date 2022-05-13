@@ -16,14 +16,14 @@ public class Render {
 	
 	public void draw(Render render, int x, int y, float scale) {
 		
-		for (int yp = 0; yp < (int) (render.width * scale); yp++) {
+		for (int yp = 0; yp < (int) (render.height * scale); yp++) {
 			
 			int yPix = yp + y;
 			
 			if (yPix < 0 || yPix >= height)
 				continue;
 			
-			for (int xp = 0; xp < (int) (render.height * scale); xp++) {
+			for (int xp = 0; xp < (int) (render.width * scale); xp++) {
 				
 				int xPix = xp + x;
 			
