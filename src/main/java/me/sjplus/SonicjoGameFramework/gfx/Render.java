@@ -16,23 +16,22 @@ public class Render {
 	
 	public void draw(Render render, int x, int y, float scale) {
 		
-		for (int xp = 0; xp < (int) (render.width * scale); xp++) {
+		for (int yp = 0; yp < (int) (render.width * scale); yp++) {
 			
-			int xPix = xp + x;
+			int yPix = yp + y;
 			
-			if (xPix < 0 || xPix >= width)
+			if (yPix < 0 || yPix >= height)
 				continue;
 			
-			for (int yp = 0; yp < (int) (render.height * scale); yp++) {
+			for (int xp = 0; xp < (int) (render.height * scale); xp++) {
 				
-				int yPix = yp + y;
+				int xPix = yp + y;
 			
-				if (yPix < 0 || yPix >= width)
+				if (xPix < 0 || xPix >= width)
 					continue;
 				
 				if (render.pixels[(int) (xp / scale) + (int) (yp / scale) * render.width] < 0)
-				
-				this.pixels[xPix + yPix * this.width] = render.pixels[(int) (xp / scale) + (int) (yp / scale) * render.width];
+					this.pixels[xPix + yPix * this.width] = render.pixels[(int) (xp / scale) + (int) (yp / scale) * render.width];
 				
 			}
 			
