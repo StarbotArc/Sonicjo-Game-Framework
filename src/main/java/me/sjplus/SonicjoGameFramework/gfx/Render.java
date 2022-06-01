@@ -30,8 +30,10 @@ public class Render {
 				if (xPix < 0 || xPix >= width)
 					continue;
 				
-				if (render.pixels[(int) (xp / scale) + (int) (yp / scale) * render.width] < 0)
+				if (render.pixels[(int) (xp / scale) + (int) (yp / scale) * render.width] >= 1)
 					this.pixels[xPix + yPix * this.width] = render.pixels[(int) (xp / scale) + (int) (yp / scale) * render.width];
+				else
+					System.out.println(render.pixels[(int) (xp / scale) + (int) (yp / scale) * render.width]);
 				
 			}
 			
@@ -45,36 +47,10 @@ public class Render {
 		
 	}
 	
-	public void drawPixel(int x, int y, int color, int alpha) {
+	public void drawPixel(int x, int y, int color) {
 		
 		if (x < 0 || y < 0 || x >= width || y >= height)
 			return;
-		
-		if (alpha < 255) {
-		
-			int pixel = this.pixels[x + y * width];
-			int r = (pixel >> 16) & 0xff;
-			int g = (pixel >> 8) & 0xff;
-			int b = (pixel) & 0xff;
-			
-			if (pixel > color) {
-			
-				r = r - (((color >> 16) & 0xff)) * (alpha)/255;
-				g = g - (((color >> 8) & 0xff)) * (alpha)/255;
-				b = b - ((color & 0xff)) * (alpha)/255;
-			
-			} else {
-				
-				r = r + ((color & 0xff)) * (alpha)/255;
-				g = g + (((color >> 8) & 0xff)) * (alpha)/255;
-				b = b + (((color >> 16) & 0xff)) * (alpha)/255;
-				
-			}
-			
-			this.pixels[x + y * width] = r | g << 8 | b << 16;
-			return;
-			
-		}
 		
 		this.pixels[x + y * width] = color;
 		
@@ -87,6 +63,37 @@ public class Render {
 			this.pixels[i] = color;
 			
 		}
+		
+	}
+	
+	public void multiplyRGB(int r, int g, int b) {
+		
+		for (int i = 0; i < pixels.length; i++) {
+
+			int p = pixels[i];
+
+			int r1 = (p >> 16) & 0xff;
+			int g1 = (p >> 8) & 0xff;
+			int b1 = (p) & 0xff;
+
+			r1 = r1 * r / 255;
+			g1 = g1 * g / 255;
+			b1 = b1 * b / 255;
+			
+			if ((r1 << 16 | g1 << 8 | b1) >= 0)
+				pixels[i] = r1 << 16 | g1 << 8 | b1;
+			
+		}
+		
+	}
+	
+	public void multiplyColor(int col) {
+		
+		int r = (col >> 16) & 0xff;
+		int g = (col >> 8) & 0xff;
+		int b = (col) & 0xff;
+		
+		this.multiplyRGB(r, g, b);
 		
 	}
 	

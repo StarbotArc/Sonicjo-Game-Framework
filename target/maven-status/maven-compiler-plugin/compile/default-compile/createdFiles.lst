@@ -24,6 +24,7 @@ me\sjplus\SonicjoGameFramework\Display$DisplayHint.class
 me\sjplus\SonicjoGameFramework\math\Vector4D.class
 me\sjplus\SonicjoGameFramework\net\Packet.class
 me\sjplus\SonicjoGameFramework\math\Vector2D.class
+me\sjplus\SonicjoGameFramework\sfx\Sound.class
 me\sjplus\SonicjoGameFramework\net\ConnectionListener.class
 me\sjplus\SonicjoGameFramework\gfx\Render.class
 me\sjplus\SonicjoGameFramework\math\Vector3D.class

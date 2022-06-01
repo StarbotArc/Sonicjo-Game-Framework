@@ -122,6 +122,12 @@ public class Display {
 		
 	}
 
+	public Canvas getCanvas() {
+		
+		return canvas;
+		
+	}
+	
 	public void onResize(int width, int height) {
 		
 		this.width = width;

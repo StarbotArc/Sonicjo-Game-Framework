@@ -2,7 +2,7 @@ package me.sjplus.SonicjoGameFramework.gfx;
 
 public class FontRenderer {
 
-	private Sprite fontsheet;
+	public final Sprite fontsheet;
 	private int offsetX, charWidth, charHeight, imgWidth, imgHeight;
 	private String characters;
 	
