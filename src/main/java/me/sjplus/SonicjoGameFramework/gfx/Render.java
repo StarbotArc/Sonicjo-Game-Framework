@@ -35,8 +35,6 @@ public class Render {
 				
 				if (render.pixels[(int) (xp / scaleX) + (int) (yp / scaleY) * render.width] >= 1)
 					this.pixels[xPix + yPix * this.width] = render.pixels[(int) (xp / scaleX) + (int) (yp / scaleY) * render.width];
-				else
-					System.out.println(render.pixels[(int) (xp / scaleX) + (int) (yp / scaleY) * render.width]);
 				
 			}
 			
