@@ -7,7 +7,7 @@ import javax.sound.sampled.*;
 public class Sound {
 
 	protected Clip clip;
-	protected long playPosition;
+	protected boolean loop;
 	
 	public Sound(String path) {
 		
@@ -27,25 +27,20 @@ public class Sound {
 
 	public void play() {
 		
-		this.clip.setMicrosecondPosition(playPosition);
 		this.clip.start();
 		
-		this.playPosition = 0;
+	}
+	
+	public void shouldLoop(boolean loop) {
+		
+		this.clip.loop(loop? -1 : 0);
+		this.loop = loop;
 		
 	}
 	
-	public void pause() {
+	public boolean looping() {
 		
-		this.playPosition = this.clip.getMicrosecondPosition();
-		this.stop();
-		
-	}
-	
-	public void setPlayPosition(long point) {
-		
-		if (point < 0 || point > this.clip.getMicrosecondLength()) return;
-		
-		this.playPosition = point;
+		return loop;
 		
 	}
 	

@@ -14,30 +14,39 @@ public class Render {
 		
 	}
 	
-	public void draw(Render render, int x, int y, float scale) {
+	public void draw(Render render, int x, int y, float w, float h) {
 		
-		for (int yp = 0; yp < (int) (render.height * scale); yp++) {
+		float scaleX = (float) render.width / w;
+		float scaleY = (float) render.height / h;
+		
+		for (int yp = 0; yp < (int) (render.height * scaleY); yp++) {
 			
 			int yPix = yp + y;
 			
 			if (yPix < 0 || yPix >= height)
 				continue;
 			
-			for (int xp = 0; xp < (int) (render.width * scale); xp++) {
+			for (int xp = 0; xp < (int) (render.width * scaleX); xp++) {
 				
 				int xPix = xp + x;
 			
 				if (xPix < 0 || xPix >= width)
 					continue;
 				
-				if (render.pixels[(int) (xp / scale) + (int) (yp / scale) * render.width] >= 1)
-					this.pixels[xPix + yPix * this.width] = render.pixels[(int) (xp / scale) + (int) (yp / scale) * render.width];
+				if (render.pixels[(int) (xp / scaleX) + (int) (yp / scaleY) * render.width] >= 1)
+					this.pixels[xPix + yPix * this.width] = render.pixels[(int) (xp / scaleX) + (int) (yp / scaleY) * render.width];
 				else
-					System.out.println(render.pixels[(int) (xp / scale) + (int) (yp / scale) * render.width]);
+					System.out.println(render.pixels[(int) (xp / scaleX) + (int) (yp / scaleY) * render.width]);
 				
 			}
 			
 		}
+		
+	}
+	
+	public void draw(Render render, int x, int y, float scale) {
+		
+		draw(render, x, y, render.width * scale, render.height * scale);
 		
 	}
 	
@@ -56,13 +65,53 @@ public class Render {
 		
 	}
 	
-	public void fill(int color) {
+	public void fill(int color, int xOff, int yOff, int width, int height) {
 		
-		for (int i = 0; i < this.pixels.length; i++) {
+		for (int y = 0; y < height; y++) {
 			
-			this.pixels[i] = color;
+			int yPix = yOff + y;
+			
+			for (int x = 0; x < width; x++) {
+			
+				int xPix = xOff + x;
+				
+				this.pixels[xPix + yPix * this.width] = color;
+			
+			}
 			
 		}
+		
+	}
+	
+	public void fill(int color) {
+		
+		this.fill(color, 0, 0, width, height);
+		
+	}
+	
+	public Render copyData(int x, int y, int width, int height) {
+		
+		int[] data = new int[width * height];
+		
+		for (int y1 = 0; y1 < height; y1++) {
+			
+			int yPix = y1 + y;
+			
+			for (int x1 = 0; x1 < width; x1++) {
+				
+				int xPix = x1 + x;
+				
+				data[x1 + y1 * width] = this.pixels[xPix + yPix * this.width];
+				
+			}
+			
+		}
+		
+		Render render = new Render(width, height);
+		
+		render.pixels = data;
+		
+		return render;
 		
 	}
 	
