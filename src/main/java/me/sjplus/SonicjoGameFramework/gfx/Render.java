@@ -16,8 +16,8 @@ public class Render {
 	
 	public void draw(Render render, int x, int y, float w, float h) {
 		
-		float scaleX = (float) render.width / w;
-		float scaleY = (float) render.height / h;
+		float scaleX = (float) w / render.width;
+		float scaleY = (float) h / render.height;
 		
 		for (int yp = 0; yp < (int) (render.height * scaleY); yp++) {
 			
