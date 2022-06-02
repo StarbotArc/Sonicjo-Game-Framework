@@ -5,7 +5,6 @@ import java.awt.event.*;
 public class Mouse implements MouseMotionListener, MouseListener, MouseWheelListener {
 
 	public int mouseX, mouseY;
-	public int lastMouseX, lastMouseY;
 	public int scrollIncrement;
 	
 	public boolean mouseButton[] = new boolean[3];
@@ -51,9 +50,6 @@ public class Mouse implements MouseMotionListener, MouseListener, MouseWheelList
 	@Override
 	public void mouseDragged(MouseEvent e) {
 
-		this.lastMouseX = this.mouseX;
-		this.lastMouseY = this.mouseY;
-		
 		this.mouseX = e.getX();
 		this.mouseY = e.getY();
 		
@@ -62,9 +58,6 @@ public class Mouse implements MouseMotionListener, MouseListener, MouseWheelList
 	@Override
 	public void mouseMoved(MouseEvent e) {
 
-		this.lastMouseX = this.mouseX;
-		this.lastMouseY = this.mouseY;
-		
 		this.mouseX = e.getX();
 		this.mouseY = e.getY();
 		

@@ -134,7 +134,7 @@ public class Display {
 		this.height = height;
 		
 		data = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-		pixels = (((DataBufferInt)data.getRaster().getDataBuffer()).getData());
+		pixels = (((DataBufferInt) data.getRaster().getDataBuffer()).getData());
 		
 		if (this.screenClass != null)
 			buildScreenWithClass();
