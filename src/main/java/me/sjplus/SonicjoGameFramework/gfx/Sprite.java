@@ -45,7 +45,17 @@ public class Sprite extends Render {
 		
 		for (int i = 0; i < this.pixels.length; i++) {
 			
+			if (this.pixels[i] >> 24 == 0) {
+				
+				this.pixels[i] = -1;
+				continue;
+				
+			}
+			
 			this.pixels[i] = this.pixels[i] & 0xffffff;
+			
+			if (this.pixels[i] < 0)
+			System.out.println(this.pixels[i]);
 			
 		}
 		
@@ -71,6 +81,23 @@ public class Sprite extends Render {
 		
 		}
 		
+		return null;
+		
+	}
+	
+	public static Sprite createSpriteExternally(String path) {
+		
+		try {
+			
+			BufferedImage i = ImageIO.read(new File(path));
+			
+			return new Sprite(i, i.getWidth(), i.getHeight());
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
 		return null;
 		
 	}

@@ -11,7 +11,6 @@ import javax.swing.JFrame;
 
 import me.sjplus.SonicjoGameFramework.gfx.*;
 import me.sjplus.SonicjoGameFramework.input.*;
-import me.sjplus.SonicjoGameFramework.net.*;
 
 public class Display {
 
@@ -27,8 +26,9 @@ public class Display {
 	private Keyboard keyboard;
 	private Mouse mouse;
 	
-	private SocketClient sClient;
 	private Class<?> screenClass;
+	
+	private boolean stopRendering = false;
 	
 	public Display(ThreadHandler thread, String title, int width, int height) {
 		
@@ -91,19 +91,6 @@ public class Display {
 		
 	}
 	
-	public void createSocketClient(String host, int port) {
-		
-		this.sClient = new SocketClient(port, host);
-		
-	}
-	
-	public void nullifySocketClient() {
-		
-		this.sClient.close();
-		this.sClient = null;
-		
-	}
-	
 	public JFrame getFrame() {
 		
 		return frame;
@@ -130,6 +117,8 @@ public class Display {
 	
 	public void onResize(int width, int height) {
 		
+		stopRendering = true;
+		
 		this.width = width;
 		this.height = height;
 		
@@ -138,6 +127,8 @@ public class Display {
 		
 		if (this.screenClass != null)
 			buildScreenWithClass();
+		
+		stopRendering = false;
 		
 	}
 	
@@ -184,25 +175,14 @@ public class Display {
 	
 	public void update(double delta) {
 		
-		if (sClient != null) {
-			
-			try {
-	
-				sClient.listen();
-		
-			} catch (IOException e) {
-	
-				e.printStackTrace();
-	
-			}
-		
-		}
-		
 		screen.update(mouse, keyboard, delta);
 		
 	}
 	
 	public void render() {
+		
+		if (stopRendering)
+			return;
 		
 		BufferStrategy bs = this.canvas.getBufferStrategy();
 		
@@ -218,6 +198,9 @@ public class Display {
 		screen.render();
 		
 		for (int i = 0; i < pixels.length; i++) {
+			
+			if (stopRendering)
+				return;
 			
 			pixels[i] = screen.pixels[i];
 			

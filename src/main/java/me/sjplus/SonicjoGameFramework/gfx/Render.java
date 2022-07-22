@@ -33,7 +33,7 @@ public class Render {
 				if (xPix < 0 || xPix >= width)
 					continue;
 				
-				if (render.pixels[(int) (xp / scaleX) + (int) (yp / scaleY) * render.width] >= 1)
+				if (render.pixels[(int) (xp / scaleX) + (int) (yp / scaleY) * render.width] >= 0)
 					this.pixels[xPix + yPix * this.width] = render.pixels[(int) (xp / scaleX) + (int) (yp / scaleY) * render.width];
 				
 			}
@@ -119,6 +119,9 @@ public class Render {
 
 			int p = pixels[i];
 
+			if (p < 0)
+				continue;
+				
 			int r1 = (p >> 16) & 0xff;
 			int g1 = (p >> 8) & 0xff;
 			int b1 = (p) & 0xff;
